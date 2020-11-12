@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品详情</title>
+    <link rel="stylesheet" href="../css/details.css">
+
+
+</head>
+
+<body>
+    <div class="navbg">
+
+    </div>
+    <div class="deta-cont">
+        <div class="deta_img">
+            <img id="spimg" src="" alt="">
+        </div>
+
+        <div class="tit-cont">
+            <ul>
+                <li class="spname"></li>
+                <li class="xiangqing"></li>
+                <li class="pice"></li>
+                <input id="numbtn" type="number" name="" id="" value="1">
+                <input id="addbtn" type="button" value="加入购物车">
+
+            </ul>
+
+        </div>
+    </div>
+    <script src="../js/jquery-1.11.0.js"></script>
+    <script>
+        $(function() {
+            //商品详情
+            let adrss = "http://jx.xuzhixiang.top/ap/api/detail.php"
+            let oid = localStorage.getItem("id");
+            let str = location.search;
+            // console.log(location.search)
+            let arr = str.split("=")
+                // console.log(arr, arr[1]);
+
+            $.ajax({
+                type: "get",
+                url: adrss,
+                data: {
+                    id: arr[1]
+                },
+                success: function(res) {
+                    // console.log(res);
+                    let arr = res.data;
+
+                    spimg.src = res.data.pimg;
+                    $(".spname").html(arr.pname);
+                    $(".xiangqing").html(arr.pdesc);
+                    $(".pice").html("￥" + arr.pprice);
+
+                }
+            });
+
+        })
+    </script>
+    <script>
+        $(function() {
+
+
+            $("#addbtn").click(function() {
+
+                let url = "http://jx.xuzhixiang.top/ap/api/add-product.php"
+                let oid = localStorage.getItem("id");
+                let str = location.search;
+                let arr = str.split("=");
+                let pnum = $("#numbtn").val();
+
+                $.ajax({
+                    type: "get",
+                    url,
+                    data: {
+                        uid: oid,
+                        pid: arr[1],
+                        pnum
+                    },
+                    success: function(res) {
+                        console.log(res);
+                        alert("加入成功")
+                        location.href = "gwcar.html"
+
+                    }
+
+                });
+
+            })
+
+        })
+    </script>
+
+</body>
+
+</html>

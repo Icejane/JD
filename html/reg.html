@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="../css/reg.css">
+    <script src="../js/jquery-1.11.0.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div class="nav-bg">
+            <a href="">
+                <div class="nav-bgbg"></div>
+            </a>
+            <div class="reg-cont">
+
+                <ul>
+                    <li>
+                        <h2>京东帐号注册</h2>
+                        <p>已有账号,<a href="login.html">去登录></a></p>
+                    </li>
+                    <li>账号：<input style="width:220px;height: 20px;margin-bottom: 20px;" type="text" id="username"></li>
+                    <li>密码：<input style="width:220px;height: 20px;margin-bottom: 20px;" type="password" id="password"></li>
+                    <li><input type="submit" value="注册" id="sub" class="zc"></li>
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="../js/jquery-1.11.0.js"></script>
+    <script>
+        $(function() {
+            $("#sub").click(function() {
+                var username = $("#username").val();
+                var password = $("#password").val();
+                $.get("http://jx.xuzhixiang.top/ap/api/reg.php", {
+                    username,
+                    password
+
+                }).then(foo => {
+                    console.log(foo);
+                    if (foo.code == 1) {
+                        alert("注册成功")
+                        window.location.href = "login.html"
+                    } else {
+                        alert("用户名已注册");
+                    }
+
+                });
+
+            })
+
+        })
+    </script>
+
+</body>
+
+</html>
